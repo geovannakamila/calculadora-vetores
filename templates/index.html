@@ -232,3 +232,27 @@
     </script>
   </body>
 </html>
+<section>
+  <h2>Gráfico 3D dos Vetores</h2>
+  <div class="grid">
+    <div>
+      <label>v1 = (x, y, z)</label>
+      <div class="triple">
+        <input id="plot-v1x" type="number" step="any" placeholder="x">
+        <input id="plot-v1y" type="number" step="any" placeholder="y">
+        <input id="plot-v1z" type="number" step="any" placeholder="z">
+      </div>
+    </div>
+    <div>
+      <label>v2 = (x, y, z)</label>
+      <div class="triple">
+        <input id="plot-v2x" type="number" step="any" placeholder="x">
+        <input id="plot-v2y" type="number" step="any" placeholder="y">
+        <input id="plot-v2z" type="number" step="any" placeholder="z">
+      </div>
+    </div>
+  </div>
+  <button onclick="plot()">Gerar Gráfico</button>
+  <output id="plot-out"></output>
+  <img id="plot-img" style="margin-top:10px; max-width:100%; border-radius:10px;" />
+</section>
