@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, send_file
 import matplotlib.pyplot as plt
 import io, base64
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 def parse_vec(data, key):
     v = data.get(key)
