@@ -2,7 +2,7 @@ async function post(url, payload) {
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
@@ -17,8 +17,8 @@ function getTriple(prefix) {
 
 function show(elId, value) {
   document.getElementById(elId).textContent = Array.isArray(value)
-    ? (${value.map(n => Number(n.toFixed(2))).join(", ")})
-    : String(value);
+    ? (${value.map(n => n.toFixed(2)).join(", ")})
+    : value;
 }
 
 async function sum() {
