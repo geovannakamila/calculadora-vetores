@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculadora Vetorial – Geo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <header>
+      <h1>⚙️ Calculadora Vetorial – 3D</h1>
+      <p>Adição, multiplicação por escalar, produto escalar e produto vetorial.</p>
+    </header>
+
+    <main>
+      <section>
+        <h2>Somar Vetores</h2>
+        <div class="grid">
+          <div>
+            <label>v1 = (x, y, z)</label>
+            <div class="triple">
+              <input id="add-v1x" type="number" step="any" placeholder="x">
+              <input id="add-v1y" type="number" step="any" placeholder="y">
+              <input id="add-v1z" type="number" step="any" placeholder="z">
+            </div>
+          </div>
+          <div>
+            <label>v2 = (x, y, z)</label>
+            <div class="triple">
+              <input id="add-v2x" type="number" step="any" placeholder="x">
+              <input id="add-v2y" type="number" step="any" placeholder="y">
+              <input id="add-v2z" type="number" step="any" placeholder="z">
+            </div>
+          </div>
+        </div>
+        <button onclick="sum()">Somar</button>
+        <output id="add-out"></output>
+      </section>
+
+      <section>
+        <h2>Multiplicar por Escalar</h2>
+        <div class="grid">
+          <div>
+            <label>v = (x, y, z)</label>
+            <div class="triple">
+              <input id="sca-vx" type="number" step="any" placeholder="x">
+              <input id="sca-vy" type="number" step="any" placeholder="y">
+              <input id="sca-vz" type="number" step="any" placeholder="z">
+            </div>
+          </div>
+          <div>
+            <label>k (escalar)</label>
+            <input id="sca-k" type="number" step="any" placeholder="k">
+          </div>
+        </div>
+        <button onclick="scalar()">Multiplicar</button>
+        <output id="sca-out"></output>
+      </section>
+
+      <section>
+        <h2>Produto Escalar</h2>
+        <div class="grid">
+          <div>
+            <label>v1 = (x, y, z)</label>
+            <div class="triple">
+              <input id="dot-v1x" type="number" step="any" placeholder="x">
+              <input id="dot-v1y" type="number" step="any" placeholder="y">
+              <input id="dot-v1z" type="number" step="any" placeholder="z">
+            </div>
+          </div>
+          <div>
+            <label>v2 = (x, y, z)</label>
+            <div class="triple">
+              <input id="dot-v2x" type="number" step="any" placeholder="x">
+              <input id="dot-v2y" type="number" step="any" placeholder="y">
+              <input id="dot-v2z" type="number" step="any" placeholder="z">
+            </div>
+          </div>
+        </div>
+        <button onclick="dot()">Calcular</button>
+        <output id="dot-out"></output>
+      </section>
+
+      <section>
+        <h2>Produto Vetorial</h2>
+        <div class="grid">
+          <div>
+            <label>v1 = (x, y, z)</label>
+            <div class="triple">
+              <input id="cross-v1x" type="number" step="any" placeholder="x">
+              <input id="cross-v1y" type="number" step="any" placeholder="y">
+              <input id="cross-v1z" type="number" step="any" placeholder="z">
+            </div>
+          </div>
+          <div>
+            <label>v2 = (x, y, z)</label>
+            <div class="triple">
+              <input id="cross-v2x" type="number" step="any" placeholder="x">
+              <input id="cross-v2y" type="number" step="any" placeholder="y">
+              <input id="cross-v2z" type="number" step="any" placeholder="z">
+            </div>
+          </div>
+        </div>
+        <button onclick="cross()">Calcular</button>
+        <output id="cross-out"></output>
+      </section>
+    </main>
+
+    <footer>
+      <small>Feito com Flask • by Geo 💜</small>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
