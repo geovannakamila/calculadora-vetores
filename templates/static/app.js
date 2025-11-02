@@ -64,3 +64,14 @@ async function cross() {
     show("cross-out", "Erro: " + e.message);
   }
 }
+async function plot() {
+  try {
+    const v1 = getTriple("plot-v1");
+    const v2 = getTriple("plot-v2");
+    const data = await post("/api/plot", { v1, v2 });
+    document.getElementById("plot-img").src = data.image;
+    show("plot-out", "Gráfico gerado com sucesso!");
+  } catch (e) {
+    show("plot-out", "Erro: " + e.message);
+  }
+}
