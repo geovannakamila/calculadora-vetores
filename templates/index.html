@@ -1,258 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Calculadora Vetorial – Geo 💜</title>
-    <style>
-      :root { --gap: 12px; --radius: 10px; }
-      * { box-sizing: border-box; }
-      body {
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        line-height: 1.45;
-        background: #0f1226;
-        color: #eae9f7;
-      }
-      header {
-        padding: 28px 20px;
-        background: linear-gradient(135deg,#5b2be0, #8a5bff);
-        color: white;
-        text-align: center;
-      }
-      main { max-width: 920px; margin: 24px auto; padding: 0 16px; }
-      section {
-        background: #161a39;
-        border: 1px solid #2a2f57;
-        border-radius: var(--radius);
-        padding: 16px;
-        margin-bottom: 18px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-      }
-      h1, h2 { margin: 0 0 10px 0; }
-      p { margin: 0 0 14px 0; }
-      .grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: var(--gap);
-        margin-bottom: 12px;
-      }
-      .triple { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
-      input {
-        width: 100%;
-        padding: 10px 12px;
-        border-radius: 8px;
-        border: 1px solid #3a3f6f;
-        background: #0e1230;
-        color: #eae9f7;
-      }
-      label { display: block; margin-bottom: 6px; opacity: 0.9; }
-      button {
-        padding: 10px 16px;
-        border: none;
-        border-radius: 8px;
-        background: #7a5cff;
-        color: white;
-        cursor: pointer;
-        font-weight: 600;
-      }
-      button:hover { filter: brightness(1.05); }
-      output {
-        display: block;
-        margin-top: 10px;
-        font-weight: 600;
-        background: #0e1230;
-        border: 1px solid #2a2f57;
-        border-radius: 8px;
-        padding: 8px 10px;
-      }
-      footer { text-align: center; padding: 18px; opacity: 0.8; }
-      @media (max-width: 720px) {
-        .grid { grid-template-columns: 1fr; }
-        .triple { grid-template-columns: 1fr 1fr 1fr; }
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>⚙ Calculadora Vetorial – 3D</h1>
-      <p>Adição, multiplicação por escalar, produto escalar e produto vetorial.</p>
-    </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Vetorial 3D</title>
+  <script src="/static/app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1e1e2f;
+      color: #fff;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 { color: #bb86fc; }
+    input {
+      width: 60px;
+      margin: 5px;
+      text-align: center;
+    }
+    button {
+      margin: 10px;
+      padding: 8px 15px;
+      border: none;
+      background: #bb86fc;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover { background: #9b63f8; }
+    #resultados {
+      margin-top: 15px;
+      font-size: 18px;
+    }
+    #grafico {
+      margin-top: 25px;
+    }
+    img {
+      max-width: 90%;
+      border: 2px solid #444;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧮 Calculadora Vetorial 3D</h1>
+  <p>Insira as coordenadas dos vetores:</p>
 
-    <main>
-      <section>
-        <h2>Somar Vetores</h2>
-        <div class="grid">
-          <div>
-            <label>v1 = (x, y, z)</label>
-            <div class="triple">
-              <input id="add-v1x" type="number" step="any" placeholder="x">
-              <input id="add-v1y" type="number" step="any" placeholder="y">
-              <input id="add-v1z" type="number" step="any" placeholder="z">
-            </div>
-          </div>
-          <div>
-            <label>v2 = (x, y, z)</label>
-            <div class="triple">
-              <input id="add-v2x" type="number" step="any" placeholder="x">
-              <input id="add-v2y" type="number" step="any" placeholder="y">
-              <input id="add-v2z" type="number" step="any" placeholder="z">
-            </div>
-          </div>
-        </div>
-        <button onclick="sum()">Somar</button>
-        <output id="add-out"></output>
-      </section>
-
-      <section>
-        <h2>Multiplicar por Escalar</h2>
-        <div class="grid">
-          <div>
-            <label>v = (x, y, z)</label>
-            <div class="triple">
-              <input id="sca-vx" type="number" step="any" placeholder="x">
-              <input id="sca-vy" type="number" step="any" placeholder="y">
-              <input id="sca-vz" type="number" step="any" placeholder="z">
-            </div>
-          </div>
-          <div>
-            <label>k (escalar)</label>
-            <input id="sca-k" type="number" step="any" placeholder="k">
-          </div>
-        </div>
-        <button onclick="scalar()">Multiplicar</button>
-        <output id="sca-out"></output>
-      </section>
-
-      <section>
-        <h2>Produto Escalar</h2>
-        <div class="grid">
-          <div>
-            <label>v1 = (x, y, z)</label>
-            <div class="triple">
-              <input id="dot-v1x" type="number" step="any" placeholder="x">
-              <input id="dot-v1y" type="number" step="any" placeholder="y">
-              <input id="dot-v1z" type="number" step="any" placeholder="z">
-            </div>
-          </div>
-          <div>
-            <label>v2 = (x, y, z)</label>
-            <div class="triple">
-              <input id="dot-v2x" type="number" step="any" placeholder="x">
-              <input id="dot-v2y" type="number" step="any" placeholder="y">
-              <input id="dot-v2z" type="number" step="any" placeholder="z">
-            </div>
-          </div>
-        </div>
-        <button onclick="dot()">Calcular</button>
-        <output id="dot-out"></output>
-      </section>
-
-      <section>
-        <h2>Produto Vetorial</h2>
-        <div class="grid">
-          <div>
-            <label>v1 = (x, y, z)</label>
-            <div class="triple">
-              <input id="cross-v1x" type="number" step="any" placeholder="x">
-              <input id="cross-v1y" type="number" step="any" placeholder="y">
-              <input id="cross-v1z" type="number" step="any" placeholder="z">
-            </div>
-          </div>
-          <div>
-            <label>v2 = (x, y, z)</label>
-            <div class="triple">
-              <input id="cross-v2x" type="number" step="any" placeholder="x">
-              <input id="cross-v2y" type="number" step="any" placeholder="y">
-              <input id="cross-v2z" type="number" step="any" placeholder="z">
-            </div>
-          </div>
-        </div>
-        <button onclick="cross()">Calcular</button>
-        <output id="cross-out"></output>
-      </section>
-    </main>
-
-    <footer>
-      <small>Feito com Flask • por <b>Geovanna Kamila 💜</b></small>
-    </footer>
-
-    <script>
-      async function post(url, payload) {
-        const res = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) throw new Error(await res.text());
-        return res.json();
-      }
-
-      function getTriple(prefix) {
-        const x = parseFloat(document.getElementById(prefix + "x").value || 0);
-        const y = parseFloat(document.getElementById(prefix + "y").value || 0);
-        const z = parseFloat(document.getElementById(prefix + "z").value || 0);
-        return [x, y, z];
-      }
-
-      function show(elId, value) {
-        document.getElementById(elId).textContent = Array.isArray(value)
-          ? (${value.map(n => Number(n.toFixed(6))).join(", ")})
-          : String(value);
-      }
-
-      async function sum() {
-        const v1 = getTriple("add-v1");
-        const v2 = getTriple("add-v2");
-        const data = await post("/api/add", { v1, v2 });
-        show("add-out", data.result);
-      }
-
-      async function scalar() {
-        const v = getTriple("sca-v");
-        const k = parseFloat(document.getElementById("sca-k").value || 0);
-        const data = await post("/api/scalar", { v, k });
-        show("sca-out", data.result);
-      }
-
-      async function dot() {
-        const v1 = getTriple("dot-v1");
-        const v2 = getTriple("dot-v2");
-        const data = await post("/api/dot", { v1, v2 });
-        show("dot-out", data.result);
-      }
-
-      async function cross() {
-        const v1 = getTriple("cross-v1");
-        const v2 = getTriple("cross-v2");
-        const data = await post("/api/cross", { v1, v2 });
-        show("cross-out", data.result);
-      }
-    </script>
-  </body>
-</html>
-<section>
-  <h2>Gráfico 3D dos Vetores</h2>
-  <div class="grid">
-    <div>
-      <label>v1 = (x, y, z)</label>
-      <div class="triple">
-        <input id="plot-v1x" type="number" step="any" placeholder="x">
-        <input id="plot-v1y" type="number" step="any" placeholder="y">
-        <input id="plot-v1z" type="number" step="any" placeholder="z">
-      </div>
-    </div>
-    <div>
-      <label>v2 = (x, y, z)</label>
-      <div class="triple">
-        <input id="plot-v2x" type="number" step="any" placeholder="x">
-        <input id="plot-v2y" type="number" step="any" placeholder="y">
-        <input id="plot-v2z" type="number" step="any" placeholder="z">
-      </div>
-    </div>
+  <div>
+    <p>Vetor 1:</p>
+    <input id="v1x" type="number" step="any" placeholder="x">
+    <input id="v1y" type="number" step="any" placeholder="y">
+    <input id="v1z" type="number" step="any" placeholder="z">
   </div>
-  <button onclick="plot()">Gerar Gráfico</button>
-  <output id="plot-out"></output>
-  <img id="plot-img" style="margin-top:10px; max-width:100%; border-radius:10px;" />
-</section>
+
+  <div>
+    <p>Vetor 2:</p>
+    <input id="v2x" type="number" step="any" placeholder="x">
+    <input id="v2y" type="number" step="any" placeholder="y">
+    <input id="v2z" type="number" step="any" placeholder="z">
+  </div>
+
+  <button onclick="somar()">Somar Vetores</button>
+  <button onclick="escalar()">Produto Escalar</button>
+  <button onclick="vetorial()">Produto Vetorial</button>
+  <button onclick="gerarGrafico()">Gerar Gráfico 3D</button>
+
+  <div id="resultados"></div>
+  <div id="grafico"></div>
+</body>
+</html>
