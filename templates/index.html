@@ -3,80 +3,78 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>R³ — Operações com Vetores</title>
+    <title>R³ — Calculadora Vetorial Completa</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
+
   <body>
     <header>
-      <h1>R³ — Operações com Vetores</h1>
-      <p>Adição • Produto Escalar • Produto Vetorial • Multiplicação por Escalar • Produto Misto</p>
+      <h1>R³ — Calculadora Vetorial</h1>
+      <p>Visualize e compreenda operações vetoriais no espaço tridimensional</p>
     </header>
 
     <main>
-      <section class="card">
+      <section class="card input-area">
+        <h2>🔢 Entradas dos Vetores</h2>
         <form id="form">
-          <div class="row">
-            <div class="col">
-              <h3>Vetor u (v₁)</h3>
-              <div class="inputs">
-                <input name="v1x" type="number" placeholder="x₁">
-                <input name="v1y" type="number" placeholder="y₁">
-                <input name="v1z" type="number" placeholder="z₁">
-              </div>
-            </div>
-            <div class="col">
-              <h3>Vetor v (v₂)</h3>
-              <div class="inputs">
-                <input name="v2x" type="number" placeholder="x₂">
-                <input name="v2y" type="number" placeholder="y₂">
-                <input name="v2z" type="number" placeholder="z₂">
-              </div>
-            </div>
-            <div class="col">
-              <h3>Vetor w (v₃) (para produto misto)</h3>
-              <div class="inputs">
-                <input name="v3x" type="number" placeholder="x₃">
-                <input name="v3y" type="number" placeholder="y₃">
-                <input name="v3z" type="number" placeholder="z₃">
-              </div>
-              <p class="hint">Se não informar v₃, posso usar w = k·v₂ (preencha k).</p>
-            </div>
+          <div class="vetor-group">
+            <h3>Vetor v₁ (u)</h3>
+            <input name="v1x" type="number" placeholder="x₁">
+            <input name="v1y" type="number" placeholder="y₁">
+            <input name="v1z" type="number" placeholder="z₁">
           </div>
 
-          <div class="row">
-            <div class="col">
-              <h3>Escalar k</h3>
-              <div class="inputs">
-                <input name="escalar" type="number" placeholder="k">
-              </div>
-            </div>
+          <div class="vetor-group">
+            <h3>Vetor v₂ (v)</h3>
+            <input name="v2x" type="number" placeholder="x₂">
+            <input name="v2y" type="number" placeholder="y₂">
+            <input name="v2z" type="number" placeholder="z₂">
+          </div>
+
+          <div class="vetor-group">
+            <h3>Vetor v₃ (w) — Produto Misto</h3>
+            <input name="v3x" type="number" placeholder="x₃">
+            <input name="v3y" type="number" placeholder="y₃">
+            <input name="v3z" type="number" placeholder="z₃">
+            <p class="hint">Dica: se deixar v₃ vazio, ele será k·v₂</p>
+          </div>
+
+          <div class="vetor-group">
+            <h3>Escalar k</h3>
+            <input name="escalar" type="number" placeholder="k">
           </div>
 
           <div class="buttons">
-            <button type="button" onclick="enviar('soma')">Somar (v₁ + v₂)</button>
-            <button type="button" onclick="enviar('multiplicacao_escalar')">k · v₁</button>
-            <button type="button" onclick="enviar('produto_escalar')">Produto Escalar (v₁·v₂)</button>
-            <button type="button" onclick="enviar('produto_vetorial')">Produto Vetorial (v₁×v₂)</button>
-            <button type="button" onclick="enviar('produto_misto')">Produto Misto [v₁,v₂,v₃]</button>
-            <button type="button" class="secondary" onclick="gerarGrafico()">Gerar Gráfico 3D</button>
+            <button type="button" onclick="enviar('soma')">➕ Soma (v₁ + v₂)</button>
+            <button type="button" onclick="enviar('multiplicacao_escalar')">⚙️ k·v₁</button>
+            <button type="button" onclick="enviar('produto_escalar')">🔸 Produto Escalar</button>
+            <button type="button" onclick="enviar('produto_vetorial')">✖️ Produto Vetorial</button>
+            <button type="button" onclick="enviar('produto_misto')">📐 Produto Misto</button>
+            <button type="button" class="secondary" onclick="gerarGrafico()">🧭 Mostrar Gráfico 3D</button>
           </div>
         </form>
       </section>
 
       <section class="card">
-        <h3>Passo a passo</h3>
-        <pre id="passos">—</pre>
-        <h3>Resultado</h3>
+        <h2>📘 Passo a passo</h2>
+        <pre id="passos">Insira os vetores e escolha uma operação acima.</pre>
+      </section>
+
+      <section class="card">
+        <h2>💡 Resultado Final</h2>
         <p id="resultado">—</p>
       </section>
 
       <section class="card">
-        <h3>Gráfico Vetorial 3D</h3>
+        <h2>🧮 Representação Gráfica 3D</h2>
         <div id="grafico"></div>
-        <div class="legend-hint">Ploto v₁, v₂ e v₃ (se informado). Para operações, os vetores são tomados a partir da origem.</div>
       </section>
     </main>
+
+    <footer>
+      <p>Desenvolvido por Geovanna Kamila Souza de Oliveira</p>
+    </footer>
 
     <script>
       async function enviar(tipo) {
@@ -89,20 +87,21 @@
 
         document.getElementById("passos").textContent = data.passos || "—";
         document.getElementById("resultado").textContent =
-          (Array.isArray(data.resultado) ? `(${data.resultado.map(n => typeof n === "number" ? fmt(n) : n).join(", ")})` :
-           (data.resultado ?? "—"));
+          Array.isArray(data.resultado)
+            ? `(${data.resultado.map(n => fmt(n)).join(", ")})`
+            : (data.resultado ?? "—");
       }
 
       function fmt(x) {
         if (x === null || x === undefined) return "0";
         const i = Math.trunc(x);
-        return Math.abs(x - i) < 1e-12 ? String(i) : Number(x).toFixed(4).replace(/\.?0+$/,"");
+        return Math.abs(x - i) < 1e-12 ? String(i) : Number(x).toFixed(3).replace(/\.?0+$/,"");
       }
 
       function getVal(name) {
         const v = parseFloat(document.querySelector(`[name="${name}"]`).value);
         return isNaN(v) ? 0 : v;
-        }
+      }
 
       function gerarGrafico() {
         const v1 = [getVal("v1x"), getVal("v1y"), getVal("v1z")];
@@ -111,23 +110,39 @@
 
         const traces = [];
 
-        function addVec(v, nome) {
-          traces.push({
-            x: [0, v[0]], y: [0, v[1]], z: [0, v[2]],
-            type: "scatter3d", mode: "lines+markers",
-            line: { width: 6 }, name: nome
-          });
-        }
+        const cores = ["#9f67ff", "#47a3ff", "#4ef09a"];
+        const nomes = ["v₁", "v₂", "v₃"];
+        const vetores = [v1, v2, v3];
 
-        addVec(v1, "v₁");
-        addVec(v2, "v₂");
-        if (Math.abs(v3[0]) + Math.abs(v3[1]) + Math.abs(v3[2]) > 0) addVec(v3, "v₃");
+        vetores.forEach((v, i) => {
+          if (Math.abs(v[0])+Math.abs(v[1])+Math.abs(v[2])>0){
+            traces.push({
+              x: [0, v[0]],
+              y: [0, v[1]],
+              z: [0, v[2]],
+              type: "scatter3d",
+              mode: "lines+markers+text",
+              line: { color: cores[i], width: 6 },
+              marker: { size: 5, color: cores[i] },
+              text: [null, nomes[i]],
+              textposition: "top center",
+              name: nomes[i]
+            });
+          }
+        });
 
         Plotly.newPlot("grafico", traces, {
-          scene: { xaxis:{title:"X"}, yaxis:{title:"Y"}, zaxis:{title:"Z"} },
-          margin: {l:0, r:0, t:0, b:0},
-          paper_bgcolor:"#15151a", font:{color:"#fff"}
-        }, {displaylogo:false});
+          scene: {
+            xaxis:{title:"Eixo X"},
+            yaxis:{title:"Eixo Y"},
+            zaxis:{title:"Eixo Z"},
+            aspectmode: "cube"
+          },
+          paper_bgcolor:"#15151a",
+          plot_bgcolor:"#15151a",
+          font:{color:"#fff"},
+          margin:{l:0,r:0,t:0,b:0}
+        });
       }
     </script>
   </body>
