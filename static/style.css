@@ -1,0 +1,21 @@
+
+*{box-sizing:border-box;font-family:system-ui,Segoe UI,Roboto,sans-serif}
+body{margin:0;background:#0f0f12;color:#f2f2f2}
+header{background:#15151a;padding:20px;text-align:center;border-bottom:1px solid #2a2a33}
+header h1{margin:0 0 8px 0;color:#a47fff}
+header p{margin:0;color:#bdbdc7;font-size:0.95rem}
+main{max-width:1000px;margin:auto;padding:20px;display:grid;gap:16px}
+.card{background:#15151a;border:1px solid #2a2a33;border-radius:12px;padding:16px}
+h2{color:#a47fff;margin-bottom:10px}
+h3{margin:8px 0;color:#d0baff}
+input{width:70px;padding:6px;border-radius:6px;border:1px solid #444;background:#1b1b20;color:#fff;text-align:center;margin:3px}
+.hint{font-size:0.8rem;color:#a0a0aa}
+.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{background:#7c3aed;border:none;padding:10px 14px;border-radius:8px;color:#fff;cursor:pointer;transition:0.3s}
+button:hover{background:#9f67ff}
+button.secondary{background:#2d2d35}
+button.secondary:hover{background:#3a3a44}
+pre{white-space:pre-wrap;background:#101015;padding:10px;border-radius:8px;font-size:0.95rem;line-height:1.4}
+#resultado{font-size:1.2rem;color:#9f67ff;font-weight:600}
+#grafico{width:100%;height:500px}
+footer{text-align:center;color:#aaa;padding:10px 0;font-size:0.9rem;border-top:1px solid #2a2a33;margin-top:20px}
